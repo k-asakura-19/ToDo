@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyString
+  start_date: 2019-07-12
+  limit_date: 2019-07-12
+  end_date: 2019-07-12
+  priority: 1
+  status: 1
+
+two:
+  title: MyString
+  description: MyString
+  start_date: 2019-07-12
+  limit_date: 2019-07-12
+  end_date: 2019-07-12
+  priority: 1
+  status: 1

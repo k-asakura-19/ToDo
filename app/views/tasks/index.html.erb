@@ -1,0 +1,78 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tasks</h1>
+<h2>search</h2>
+  <%= search_form_for @q do |f| %>
+  
+  <%= f.label :title_or_description, "Keyword" %>
+  <%= f.search_field :title_or_description_cont %>
+  
+  <%= f.label :start_date %>
+  <%= f.date_field :start_date_gteq %>以上〜
+  <%= f.date_field :start_date_lt %>未満  
+  
+  <%= f.label :limit_date %>
+  <%= f.date_field :limit_date_gteq %>以上〜
+  <%= f.date_field :limit_date_lt %>未満  
+  
+  <%= f.label :end_date %>
+  <%= f.date_field :end_date_gteq %>以上〜
+  <%= f.date_field :end_date_lt %>未満  
+  
+  <%= f.label :priority %>
+  <%= f.radio_button :priority, 1 %>low
+  <%= f.radio_button :priority, 2 %>high
+  
+  <%= f.label :status %>
+  <%= f.radio_button :status, 0 %>not_started
+  <%= f.radio_button :status, 1 %>processing
+  <%= f.radio_button :status, 2 %>end
+  <br><br>
+  <%= f.submit "検索" %>
+<% end %>
+
+<h2>sort</h2>
+  <tr>
+    <th><%= sort_link(@q, :title, "Title") %></th>
+    <th><%= sort_link(@q, :start_date, "Start date") %></th>
+    <th><%= sort_link(@q, :limit_date, "Limit date") %></th>
+    <th><%= sort_link(@q, :end_date, "End date") %></th>
+    <th><%= sort_link(@q, :priority, "Priority") %></th>
+    <th><%= sort_link(@q, :status, "Status") %></th>
+    <th colspan="3"></th>
+  </tr>
+    
+<h2>List</h2>
+<table>
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :title, "Title") %></th>
+      <th>Start date</th>
+      <th>Limit date</th>
+      <th>End date</th>
+      <th>Priority</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.start_date %></td>
+        <td><%= task.limit_date %></td>
+        <td><%= task.end_date %></td>
+        <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+        <td><%= link_to 'Show', task %></td>
+        <td><%= link_to 'Edit', edit_task_path(task) %></td>
+        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_task_path %>
