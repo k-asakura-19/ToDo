@@ -12,39 +12,27 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
+    <p>タイトル</p>
     <%= form.text_field :title %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
+   <p>説明</p>
     <%= form.text_field :description %>
   </div>
 
-  <!--<div class="field">-->
-  <!--  <%= form.label :start_date %>-->
-  <!--  <%= form.date_select :start_date %>-->
-  <!--</div>-->
-
-  <!--<div class="field">-->
-  <!--  <%= form.label :limit_date %>-->
-  <!--  <%= form.date_select :limit_date %>-->
-  <!--</div>-->
-
-  <!--<div class="field">-->
-  <!--  <%= form.label :end_date %>-->
-  <!--  <%= form.date_select :end_date %>-->
-  <!--</div>-->
+  <div class="field">
+    <p>終了予定日</p>
+    <%= form.date_select :limit_date %>
+  </div>
 
   <div class="field">
-    <%= form.label :priority %>
-    <%= form.number_field :priority %>
+    <p>優先度</p>
+    <!--<%= form.number_field :priority %>-->
+    <%= form.select :priority,Task.priorities.keys.to_a %>
   </div>
 
-  <!--<div class="field">-->
-  <!--  <%= form.label :status %>-->
-  <!--  <%= form.number_field :status %>-->
-  </div>
+  
 
   <div class="actions">
     <%= form.submit %>

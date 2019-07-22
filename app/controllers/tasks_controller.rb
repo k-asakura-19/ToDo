@@ -42,15 +42,46 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
-        format.json { render :show, status: :ok, location: @task }
-      else
-        format.html { render :edit }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    
+    @task = Task.find(params[:id])
+    
+    if @task.processing?
+      @task.status = 2
+      @task.end_date = Date.today
+       respond_to do |format|
+        if @task.save
+          format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+          format.json { render :show, status: :ok, location: @task }
+        else
+          format.html { render :edit }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
       end
     end
+    
+    if @task.not_started?
+      @task.status = 1
+      @task.start_date = Date.today
+       respond_to do |format|
+        if @task.save
+          format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+          format.json { render :show, status: :ok, location: @task }
+        else
+          format.html { render :edit }
+          format.json { render json: @task.errors, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    # respond_to do |format|
+    #   if @task.update(task_params)
+    #     format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+    #     format.json { render :show, status: :ok, location: @task }
+    #   else
+    #     format.html { render :edit }
+    #     format.json { render json: @task.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # DELETE /tasks/1
@@ -73,4 +104,6 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :description, :start_date, :limit_date, :end_date, :priority, :status)
     end
+    
+    
 end
